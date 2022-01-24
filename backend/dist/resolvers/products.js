@@ -16,10 +16,10 @@ exports.ProductResolver = void 0;
 const products_1 = require("../entities/products");
 const type_graphql_1 = require("type-graphql");
 let ProductResolver = class ProductResolver {
-    async users() {
+    async products() {
         return products_1.Product.find();
     }
-    user(id) {
+    product(id) {
         return products_1.Product.findOne(id);
     }
     async createProduct(name, description, price, quantity) {
@@ -46,14 +46,14 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
-], ProductResolver.prototype, "users", null);
+], ProductResolver.prototype, "products", null);
 __decorate([
     (0, type_graphql_1.Query)(() => products_1.Product, { nullable: true }),
     __param(0, (0, type_graphql_1.Arg)("id")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
-], ProductResolver.prototype, "user", null);
+], ProductResolver.prototype, "product", null);
 __decorate([
     (0, type_graphql_1.Mutation)(() => products_1.Product),
     __param(0, (0, type_graphql_1.Arg)("name")),

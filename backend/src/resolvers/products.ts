@@ -6,13 +6,13 @@ export class ProductResolver {
     //READ
     // get all users
     @Query(() => [Product])
-    async users(): Promise<Product[]> {
+    async products(): Promise<Product[]> {
         return Product.find();
     }
 
     // search user by id
     @Query(() => Product, { nullable: true})
-    user(@Arg("id") id: number): Promise<Product | undefined> {
+    product(@Arg("id") id: number): Promise<Product | undefined> {
         return Product.findOne(id);
     }
 

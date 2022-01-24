@@ -9,9 +9,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Product = void 0;
+exports.ProductIdInput = exports.Product = void 0;
 const type_graphql_1 = require("type-graphql");
 const typeorm_1 = require("typeorm");
+const cartItems_1 = require("./cartItems");
 let Product = class Product extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -49,9 +50,23 @@ __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", Number)
 ], Product.prototype, "quantity", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => cartItems_1.CartItem, cartItem => cartItem.product),
+    __metadata("design:type", Promise)
+], Product.prototype, "cartItem", void 0);
 Product = __decorate([
     (0, type_graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)()
 ], Product);
 exports.Product = Product;
+let ProductIdInput = class ProductIdInput {
+};
+__decorate([
+    (0, type_graphql_1.Field)(),
+    __metadata("design:type", Number)
+], ProductIdInput.prototype, "id", void 0);
+ProductIdInput = __decorate([
+    (0, type_graphql_1.InputType)()
+], ProductIdInput);
+exports.ProductIdInput = ProductIdInput;
 //# sourceMappingURL=products.js.map

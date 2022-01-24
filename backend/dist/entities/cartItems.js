@@ -33,13 +33,13 @@ __decorate([
 ], CartItem.prototype, "updatedAt", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => products_1.Product),
-    (0, typeorm_1.ManyToOne)(() => products_1.Product),
+    (0, typeorm_1.ManyToOne)(() => products_1.Product, product => product.id),
     (0, typeorm_1.JoinColumn)(),
     __metadata("design:type", products_1.Product)
 ], CartItem.prototype, "product", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => cart_1.Cart),
-    (0, typeorm_1.ManyToOne)(() => cart_1.Cart),
+    (0, typeorm_1.ManyToOne)(() => cart_1.Cart, cart => cart.id),
     (0, typeorm_1.JoinColumn)(),
     __metadata("design:type", cart_1.Cart)
 ], CartItem.prototype, "cart", void 0);

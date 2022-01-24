@@ -11,6 +11,6 @@ module.exports = {
     migrations: ["./src/migrations/*.ts"],
     migrationsRun: true,
     cli: {
-        "migrationsDir": "./migrations"
+        "migrationsDir": "./src/migrations"
     }
 }

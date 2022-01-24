@@ -1,7 +1,8 @@
 import { CartItem } from "../entities/cartItems";
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
-import { Product } from "src/entities/products";
-import { Cart } from "src/entities/cart";
+import { Product, ProductIdInput } from "../entities/products";
+import { Cart, CartIdInput } from "../entities/cart";
+import { getConnection } from "typeorm";
 
 @Resolver()
 export class CartItemResolver {
@@ -21,12 +22,13 @@ export class CartItemResolver {
     //CREATE
     @Mutation(() => CartItem)
     async createCartItem(
-        @Arg("product") product: Product,
-        @Arg("cart") cart: Cart
-    ): Promise<CartItem> {
-        return CartItem.create({
-            product,
-            cart
-        })
-    }
+        @Arg("productId") productId: ProductIdInput,
+        @Arg("cartId") cartId: CartIdInput
+        ): Promise<CartItem > {
+            return await CartItem.create({
+                product: productId,
+                cart: cartId
+            }).save();
+        }
+
 }

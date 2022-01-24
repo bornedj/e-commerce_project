@@ -1,5 +1,6 @@
-import { Field, Float, Int, ObjectType } from 'type-graphql';
-import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
+import { Field, Float, InputType, Int, ObjectType } from 'type-graphql';
+import { BaseEntity, Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
+import { CartItem } from './cartItems';
 
 @ObjectType()
 @Entity()
@@ -32,4 +33,14 @@ export class Product extends BaseEntity {
     @Field(() => Int)
     @Column()
     quantity!: number;
+
+    // for many to many relationship
+    @OneToMany(() => CartItem, cartItem => cartItem.product)
+    cartItem: Promise<CartItem[]>;
+}
+
+@InputType()
+export class ProductIdInput {
+    @Field()
+    id: number;
 }

@@ -1,4 +1,4 @@
-import { Field, ObjectType } from "type-graphql";
+import { Field, Float, InputType, ObjectType } from "type-graphql";
 import { BaseEntity, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Cart } from "./cart";
 import { Product } from "./products";
@@ -18,13 +18,15 @@ export class CartItem extends BaseEntity {
     @UpdateDateColumn()
     updatedAt: Date;
 
+    //product id
     @Field(() => Product)
-    @ManyToOne(() => Product)
+    @ManyToOne(() => Product, product => product.id)
     @JoinColumn()
-    product: Product;
+    product!: Product;
 
+    // cart id
     @Field(() => Cart)
-    @ManyToOne(() => Cart)
+    @ManyToOne(() => Cart, cart => cart.id)
     @JoinColumn()
-    cart: Cart;
+    cart!: Cart;
 }

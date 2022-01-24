@@ -18,14 +18,6 @@ export class OrderItems extends BaseEntity {
     @UpdateDateColumn()
     updatedAt: Date;
 
-    @Field(() => Number)
-    @Column({default: 1})
-    quantity: number;
-
-    @Field(() => Number)
-    @Column()
-    price: number;
-
     @Field(() => Product)
     @ManyToOne(() => Product)
     @JoinColumn()

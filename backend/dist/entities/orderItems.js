@@ -32,16 +32,6 @@ __decorate([
     __metadata("design:type", Date)
 ], OrderItems.prototype, "updatedAt", void 0);
 __decorate([
-    (0, type_graphql_1.Field)(() => Number),
-    (0, typeorm_1.Column)({ default: 1 }),
-    __metadata("design:type", Number)
-], OrderItems.prototype, "quantity", void 0);
-__decorate([
-    (0, type_graphql_1.Field)(() => Number),
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", Number)
-], OrderItems.prototype, "price", void 0);
-__decorate([
     (0, type_graphql_1.Field)(() => products_1.Product),
     (0, typeorm_1.ManyToOne)(() => products_1.Product),
     (0, typeorm_1.JoinColumn)(),

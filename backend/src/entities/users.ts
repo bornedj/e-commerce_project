@@ -28,7 +28,7 @@ export class User extends BaseEntity {
 
     //passwords will be hashed
     @Column()
-    password!: string;
+    password: string;
 
     @OneToMany(() => Order, order => order.user)
     order: Promise<Order[]>;

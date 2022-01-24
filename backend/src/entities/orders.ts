@@ -1,4 +1,4 @@
-import { Field, Float, ObjectType } from "type-graphql";
+import { Field, Float, ObjectType, InputType } from "type-graphql";
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { User } from "./users";
 
@@ -33,4 +33,10 @@ export class Order extends BaseEntity {
     @ManyToOne(() => User, user => user.id)
     @JoinColumn()
     user: User;
+}
+
+@InputType()
+export class OrderIdInput {
+    @Field(() => Float)
+    id: number
 }

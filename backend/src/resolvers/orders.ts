@@ -1,5 +1,5 @@
 import { Order } from "../entities/orders";
-import { User, UserInputType } from "../entities/users";
+import { UserInputType } from "../entities/users";
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
 
 @Resolver()

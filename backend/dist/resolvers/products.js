@@ -12,79 +12,78 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserResolver = void 0;
-const users_1 = require("../entities/users");
+exports.ProductResolver = void 0;
+const products_1 = require("../entities/products");
 const type_graphql_1 = require("type-graphql");
-let UserResolver = class UserResolver {
+let ProductResolver = class ProductResolver {
     async users() {
-        return users_1.User.find();
+        return products_1.Product.find();
     }
     user(id) {
-        return users_1.User.findOne(id);
+        return products_1.Product.findOne(id);
     }
-    async createUser(email, username, password) {
-        return users_1.User.create({
-            username: username,
-            email: email,
-            password: password
-        }).save();
+    async createProduct(name, description, price, quantity) {
+        return products_1.Product.create({ name, description, price, quantity }).save();
     }
     ;
-    async updateUser(id, username, password) {
-        const user = await users_1.User.findOne(id);
+    async updateProduct(id, name, description, price, quantity) {
+        const user = await products_1.Product.findOne(id);
         if (!user) {
             return undefined;
         }
-        if (typeof username !== "undefined" && typeof password !== "undefined") {
-            await users_1.User.update({ id }, { username, password });
+        if (typeof name !== "undefined" && typeof description !== "undefined" && typeof price !== "undefined" && typeof quantity !== "undefined") {
+            await products_1.Product.update({ id }, { name, description, price, quantity });
         }
         return user;
     }
-    async deleteUser(id) {
-        await users_1.User.delete(id);
+    async deleteProduct(id) {
+        await products_1.Product.delete(id);
         return true;
     }
 };
 __decorate([
-    (0, type_graphql_1.Query)(() => [users_1.User]),
+    (0, type_graphql_1.Query)(() => [products_1.Product]),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
-], UserResolver.prototype, "users", null);
+], ProductResolver.prototype, "users", null);
 __decorate([
-    (0, type_graphql_1.Query)(() => users_1.User, { nullable: true }),
+    (0, type_graphql_1.Query)(() => products_1.Product, { nullable: true }),
     __param(0, (0, type_graphql_1.Arg)("id")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
-], UserResolver.prototype, "user", null);
+], ProductResolver.prototype, "user", null);
 __decorate([
-    (0, type_graphql_1.Mutation)(() => users_1.User),
-    __param(0, (0, type_graphql_1.Arg)("email")),
-    __param(1, (0, type_graphql_1.Arg)("username")),
-    __param(2, (0, type_graphql_1.Arg)("password")),
+    (0, type_graphql_1.Mutation)(() => products_1.Product),
+    __param(0, (0, type_graphql_1.Arg)("name")),
+    __param(1, (0, type_graphql_1.Arg)("description")),
+    __param(2, (0, type_graphql_1.Arg)("price")),
+    __param(3, (0, type_graphql_1.Arg)("quantity")),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String, String]),
+    __metadata("design:paramtypes", [String, String, Number, Number]),
     __metadata("design:returntype", Promise)
-], UserResolver.prototype, "createUser", null);
+], ProductResolver.prototype, "createProduct", null);
 __decorate([
-    (0, type_graphql_1.Mutation)(() => users_1.User, { nullable: true }),
+    (0, type_graphql_1.Mutation)(() => products_1.Product, { nullable: true }),
     __param(0, (0, type_graphql_1.Arg)("id")),
-    __param(1, (0, type_graphql_1.Arg)("username")),
-    __param(2, (0, type_graphql_1.Arg)("password")),
+    __param(1, (0, type_graphql_1.Arg)("name")),
+    __param(2, (0, type_graphql_1.Arg)("description")),
+    __param(3, (0, type_graphql_1.Arg)("price")),
+    __param(4, (0, type_graphql_1.Arg)("quantity")),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, String, String]),
+    __metadata("design:paramtypes", [Number, String, String, Number, Number]),
     __metadata("design:returntype", Promise)
-], UserResolver.prototype, "updateUser", null);
+], ProductResolver.prototype, "updateProduct", null);
 __decorate([
     (0, type_graphql_1.Mutation)(() => Boolean),
     __param(0, (0, type_graphql_1.Arg)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
-], UserResolver.prototype, "deleteUser", null);
-UserResolver = __decorate([
+], ProductResolver.prototype, "deleteProduct", null);
+ProductResolver = __decorate([
     (0, type_graphql_1.Resolver)()
-], UserResolver);
-exports.UserResolver = UserResolver;
-//# sourceMappingURL=users.js.map
+], ProductResolver);
+exports.ProductResolver = ProductResolver;
+//# sourceMappingURL=products.js.map

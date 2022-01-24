@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import {createConnection} from 'typeorm';
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
@@ -7,6 +8,8 @@ import cors from 'cors';
 import 'dotenv/config';
 import { UserResolver } from './resolvers/users'
 import { User } from './entities/users';
+import { ProductResolver } from './resolvers/products';
+import { connect } from 'http2';
 
 
 const main = async () => {
@@ -17,13 +20,12 @@ const main = async () => {
         username: process.env.DBUSERNAME,
         password: process.env.DBPASSWORD,
         host: process.env.DBHOST,
-        logging: true,
+        logging: ["error", "migration", "query"],
         port: 5432,
         synchronize: true,
         entities: [User]
     }) 
 
-    conn.close();
 
     //creating the app
     const app = express();
@@ -32,7 +34,7 @@ const main = async () => {
     // setting up apollo for graphql
     const apolloServer = new ApolloServer({
         schema: await buildSchema({
-            resolvers: [UserResolver],
+            resolvers: [UserResolver, ProductResolver],
             validate: false
         })
     });

@@ -27,9 +27,9 @@ export class Product extends BaseEntity {
 
     @Field(() => Number)
     @Column()
-    price: number;
+    price!: number;
 
     @Field(() => Int)
     @Column()
-    quantity: number;
+    quantity!: number;
 }

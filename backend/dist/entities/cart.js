@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CartIdInput = exports.Cart = void 0;
+exports.Cart = void 0;
 const type_graphql_1 = require("type-graphql");
 const typeorm_1 = require("typeorm");
 const cartItems_1 = require("./cartItems");
@@ -39,14 +39,4 @@ Cart = __decorate([
     (0, typeorm_1.Entity)()
 ], Cart);
 exports.Cart = Cart;
-let CartIdInput = class CartIdInput {
-};
-__decorate([
-    (0, type_graphql_1.Field)(),
-    __metadata("design:type", Number)
-], CartIdInput.prototype, "id", void 0);
-CartIdInput = __decorate([
-    (0, type_graphql_1.InputType)()
-], CartIdInput);
-exports.CartIdInput = CartIdInput;
 //# sourceMappingURL=cart.js.map

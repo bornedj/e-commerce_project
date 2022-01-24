@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.OrderIdInput = exports.Order = void 0;
+exports.Order = void 0;
 const type_graphql_1 = require("type-graphql");
 const typeorm_1 = require("typeorm");
 const users_1 = require("./users");
@@ -56,14 +56,4 @@ Order = __decorate([
     (0, typeorm_1.Entity)()
 ], Order);
 exports.Order = Order;
-let OrderIdInput = class OrderIdInput {
-};
-__decorate([
-    (0, type_graphql_1.Field)(() => type_graphql_1.Float),
-    __metadata("design:type", Number)
-], OrderIdInput.prototype, "id", void 0);
-OrderIdInput = __decorate([
-    (0, type_graphql_1.InputType)()
-], OrderIdInput);
-exports.OrderIdInput = OrderIdInput;
 //# sourceMappingURL=orders.js.map

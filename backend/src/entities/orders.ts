@@ -34,9 +34,3 @@ export class Order extends BaseEntity {
     @JoinColumn()
     user: User;
 }
-
-@InputType()
-export class OrderIdInput {
-    @Field(() => Float)
-    id: number
-}

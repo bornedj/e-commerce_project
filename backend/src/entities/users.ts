@@ -26,7 +26,7 @@ export class User extends BaseEntity {
     @Column({unique: true})
     email!: string;
 
-    //passwords will be hashed
+    //passwords will be hashed and hidden from the schema
     @Column()
     password: string;
 

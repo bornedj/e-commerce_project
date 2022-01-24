@@ -15,8 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CartItemResolver = void 0;
 const cartItems_1 = require("../entities/cartItems");
 const type_graphql_1 = require("type-graphql");
-const products_1 = require("../entities/products");
-const cart_1 = require("../entities/cart");
+const types_1 = require("../types");
 let CartItemResolver = class CartItemResolver {
     async cartItems() {
         return await cartItems_1.CartItem.find();
@@ -59,8 +58,8 @@ __decorate([
     __param(0, (0, type_graphql_1.Arg)("productId")),
     __param(1, (0, type_graphql_1.Arg)("cartId")),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [products_1.ProductIdInput,
-        cart_1.CartIdInput]),
+    __metadata("design:paramtypes", [types_1.ProductIdInput,
+        types_1.CartIdInput]),
     __metadata("design:returntype", Promise)
 ], CartItemResolver.prototype, "createCartItem", null);
 __decorate([

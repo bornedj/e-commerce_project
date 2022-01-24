@@ -14,9 +14,8 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.OrderItemResolver = void 0;
 const orderItems_1 = require("../entities/orderItems");
-const orders_1 = require("../entities/orders");
-const products_1 = require("../entities/products");
 const type_graphql_1 = require("type-graphql");
+const types_1 = require("../types");
 let OrderItemResolver = class OrderItemResolver {
     async orderItems() {
         return await orderItems_1.OrderItems.find();
@@ -63,8 +62,8 @@ __decorate([
     __param(0, (0, type_graphql_1.Arg)('orderId')),
     __param(1, (0, type_graphql_1.Arg)('productId')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [orders_1.OrderIdInput,
-        products_1.ProductIdInput]),
+    __metadata("design:paramtypes", [types_1.OrderIdInput,
+        types_1.ProductIdInput]),
     __metadata("design:returntype", Promise)
 ], OrderItemResolver.prototype, "createOrderItem", null);
 __decorate([

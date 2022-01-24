@@ -1,7 +1,6 @@
 import { OrderItems } from "../entities/orderItems";
-import { OrderIdInput } from "../entities/orders";
-import { ProductIdInput } from "../entities/products";
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
+import { OrderIdInput, ProductIdInput } from "../types";
 
 @Resolver()
 export class OrderItemResolver {

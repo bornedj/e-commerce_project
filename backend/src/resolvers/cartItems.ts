@@ -1,8 +1,6 @@
 import { CartItem } from "../entities/cartItems";
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
-import { Product, ProductIdInput } from "../entities/products";
-import { Cart, CartIdInput } from "../entities/cart";
-import { getConnection } from "typeorm";
+import { CartIdInput, ProductIdInput } from "../types";
 
 @Resolver()
 export class CartItemResolver {

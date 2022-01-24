@@ -38,9 +38,3 @@ export class Product extends BaseEntity {
     @OneToMany(() => CartItem, cartItem => cartItem.product)
     cartItem: Promise<CartItem[]>;
 }
-
-@InputType()
-export class ProductIdInput {
-    @Field()
-    id: number;
-}

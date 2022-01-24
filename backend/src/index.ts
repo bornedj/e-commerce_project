@@ -10,6 +10,11 @@ import { UserResolver } from './resolvers/users'
 import { User } from './entities/users';
 import { ProductResolver } from './resolvers/products';
 import { connect } from 'http2';
+import { Product } from './entities/products';
+import { Cart } from './entities/cart';
+import { CartItems } from './entities/cartItems';
+import { Order } from './entities/orders';
+import { OrderItems } from './entities/orderItems';
 
 
 const main = async () => {
@@ -23,7 +28,7 @@ const main = async () => {
         logging: ["error", "migration", "query"],
         port: 5432,
         synchronize: true,
-        entities: [User],
+        entities: [User, Product, Cart, CartItems, Order, OrderItems],
         migrations: ["./migrations/*.ts"],
         cli: {
             "migrationsDir": "migrations"

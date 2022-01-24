@@ -14,6 +14,11 @@ require("dotenv/config");
 const users_1 = require("./resolvers/users");
 const users_2 = require("./entities/users");
 const products_1 = require("./resolvers/products");
+const products_2 = require("./entities/products");
+const cart_1 = require("./entities/cart");
+const cartItems_1 = require("./entities/cartItems");
+const orders_1 = require("./entities/orders");
+const orderItems_1 = require("./entities/orderItems");
 const main = async () => {
     const conn = await (0, typeorm_1.createConnection)({
         type: 'postgres',
@@ -24,7 +29,7 @@ const main = async () => {
         logging: ["error", "migration", "query"],
         port: 5432,
         synchronize: true,
-        entities: [users_2.User],
+        entities: [users_2.User, products_2.Product, cart_1.Cart, cartItems_1.CartItems, orders_1.Order, orderItems_1.OrderItems],
         migrations: ["./migrations/*.ts"],
         cli: {
             "migrationsDir": "migrations"

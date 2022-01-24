@@ -7,7 +7,8 @@
     "start": "node dist/index.js",
     "start2": "ts-node src/index.ts",
     "watch": "tsc -w",
-    "dev": "nodemon --exec ts-node src/index.ts"
+    "dev": "nodemon --exec ts-node src/index.ts",
+    "create:migrations": "typeorm migration:create -n refactoring -d backend/src/migrations"
   },
   "repository": {
     "type": "git",

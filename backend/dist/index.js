@@ -24,7 +24,11 @@ const main = async () => {
         logging: ["error", "migration", "query"],
         port: 5432,
         synchronize: true,
-        entities: [users_2.User]
+        entities: [users_2.User],
+        migrations: ["./migrations/*.ts"],
+        cli: {
+            "migrationsDir": "migrations"
+        }
     });
     const app = (0, express_1.default)();
     const port = process.env.PORT || 4001;

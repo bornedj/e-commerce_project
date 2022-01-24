@@ -23,7 +23,11 @@ const main = async () => {
         logging: ["error", "migration", "query"],
         port: 5432,
         synchronize: true,
-        entities: [User]
+        entities: [User],
+        migrations: ["./migrations/*.ts"],
+        cli: {
+            "migrationsDir": "migrations"
+        }
     }) 
 
 

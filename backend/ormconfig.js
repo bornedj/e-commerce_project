@@ -1,4 +1,4 @@
-export const typeormConfig = {
+module.exports = {
     type: 'postgres',
     database: process.env.DBNAME,
     username: process.env.DBUSERNAME,
@@ -7,8 +7,8 @@ export const typeormConfig = {
     logging: ["error", "migration", "query"],
     port: 5432,
     synchronize: false,
-    entities: ['./entities/*.ts'],
-    migrations: ["./migrations/*.ts"],
+    entities: ['./src/entities/*.ts'],
+    migrations: ["./src/migrations/*.ts"],
     migrationsRun: true,
     cli: {
         "migrationsDir": "./migrations"

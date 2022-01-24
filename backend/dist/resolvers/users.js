@@ -13,7 +13,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserResolver = void 0;
-const users_1 = require("src/entities/users");
+const users_1 = require("../entities/users");
 const type_graphql_1 = require("type-graphql");
 let UserResolver = class UserResolver {
     async users() {

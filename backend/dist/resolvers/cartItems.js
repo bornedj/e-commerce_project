@@ -30,6 +30,16 @@ let CartItemResolver = class CartItemResolver {
             cart: cartId
         }).save();
     }
+    async updateCartItem(id, productId, cartId) {
+        const cartItem = await cartItems_1.CartItem.findOne(id);
+        if (!cartItem) {
+            return null;
+        }
+        cartItem.cart.id = cartId;
+        cartItem.product.id = productId;
+        cartItem.save();
+        return cartItem;
+    }
 };
 __decorate([
     (0, type_graphql_1.Query)(() => [cartItems_1.CartItem]),
@@ -53,6 +63,15 @@ __decorate([
         cart_1.CartIdInput]),
     __metadata("design:returntype", Promise)
 ], CartItemResolver.prototype, "createCartItem", null);
+__decorate([
+    (0, type_graphql_1.Mutation)(() => cartItems_1.CartItem),
+    __param(0, (0, type_graphql_1.Arg)("id")),
+    __param(1, (0, type_graphql_1.Arg)("productId")),
+    __param(2, (0, type_graphql_1.Arg)("cartId")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, Number, Number]),
+    __metadata("design:returntype", Promise)
+], CartItemResolver.prototype, "updateCartItem", null);
 CartItemResolver = __decorate([
     (0, type_graphql_1.Resolver)()
 ], CartItemResolver);

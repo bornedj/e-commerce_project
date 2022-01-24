@@ -9,9 +9,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.User = void 0;
+exports.UserInputType = exports.User = void 0;
 const typeorm_1 = require("typeorm");
 const type_graphql_1 = require("type-graphql");
+const orders_1 = require("./orders");
 let User = class User extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -43,9 +44,23 @@ __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => orders_1.Order, order => order.user),
+    __metadata("design:type", Promise)
+], User.prototype, "order", void 0);
 User = __decorate([
     (0, type_graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)()
 ], User);
 exports.User = User;
+let UserInputType = class UserInputType {
+};
+__decorate([
+    (0, type_graphql_1.Field)(() => type_graphql_1.Float),
+    __metadata("design:type", Number)
+], UserInputType.prototype, "id", void 0);
+UserInputType = __decorate([
+    (0, type_graphql_1.InputType)()
+], UserInputType);
+exports.UserInputType = UserInputType;
 //# sourceMappingURL=users.js.map

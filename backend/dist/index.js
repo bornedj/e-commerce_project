@@ -21,6 +21,7 @@ const orders_1 = require("./entities/orders");
 const orderItems_1 = require("./entities/orderItems");
 const carts_1 = require("./resolvers/carts");
 const cartItems_2 = require("./resolvers/cartItems");
+const orders_2 = require("./resolvers/orders");
 const main = async () => {
     const conn = await (0, typeorm_1.createConnection)({
         type: 'postgres',
@@ -42,7 +43,7 @@ const main = async () => {
     const port = process.env.PORT || 4001;
     const apolloServer = new apollo_server_express_1.ApolloServer({
         schema: await (0, type_graphql_1.buildSchema)({
-            resolvers: [users_1.UserResolver, products_1.ProductResolver, carts_1.CartResolver, cartItems_2.CartItemResolver],
+            resolvers: [users_1.UserResolver, products_1.ProductResolver, carts_1.CartResolver, cartItems_2.CartItemResolver, orders_2.OrderResolver],
             validate: false
         })
     });

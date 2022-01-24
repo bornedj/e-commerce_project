@@ -24,11 +24,28 @@ export class CartItemResolver {
     async createCartItem(
         @Arg("productId") productId: ProductIdInput,
         @Arg("cartId") cartId: CartIdInput
-        ): Promise<CartItem > {
+        ): Promise<CartItem> {
             return await CartItem.create({
                 product: productId,
                 cart: cartId
             }).save();
         }
+    
+    // UPDATE
+    @Mutation(() => CartItem)
+    async updateCartItem(
+        @Arg("id") id: number,
+        @Arg("productId") productId: number,
+        @Arg("cartId") cartId: number
+    ): Promise<CartItem | null> {
+        const cartItem = await CartItem.findOne(id);
+        if (!cartItem) {
+            return null;
+        }
+        cartItem.cart.id = cartId;
+        cartItem.product.id = productId;
+        cartItem.save();
+        return cartItem;
+    }
 
 }

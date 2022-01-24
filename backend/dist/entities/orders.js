@@ -36,8 +36,8 @@ __decorate([
     __metadata("design:type", Number)
 ], Order.prototype, "quantity", void 0);
 __decorate([
-    (0, type_graphql_1.Field)(() => Number),
-    (0, typeorm_1.Column)({ default: 0 }),
+    (0, type_graphql_1.Field)(() => type_graphql_1.Float),
+    (0, typeorm_1.Column)({ default: 0, type: "real" }),
     __metadata("design:type", Number)
 ], Order.prototype, "price", void 0);
 __decorate([
@@ -47,7 +47,7 @@ __decorate([
 ], Order.prototype, "status", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => users_1.User),
-    (0, typeorm_1.ManyToOne)(() => users_1.User),
+    (0, typeorm_1.ManyToOne)(() => users_1.User, user => user.id),
     (0, typeorm_1.JoinColumn)(),
     __metadata("design:type", users_1.User)
 ], Order.prototype, "user", void 0);

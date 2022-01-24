@@ -16,6 +16,7 @@ import { Order } from './entities/orders';
 import { OrderItems } from './entities/orderItems';
 import { CartResolver } from './resolvers/carts';
 import { CartItemResolver } from './resolvers/cartItems';
+import { OrderResolver } from './resolvers/orders';
 
 
 const main = async () => {
@@ -44,7 +45,7 @@ const main = async () => {
     // setting up apollo for graphql
     const apolloServer = new ApolloServer({
         schema: await buildSchema({
-            resolvers: [UserResolver, ProductResolver, CartResolver, CartItemResolver],
+            resolvers: [UserResolver, ProductResolver, CartResolver, CartItemResolver, OrderResolver],
             validate: false
         })
     });

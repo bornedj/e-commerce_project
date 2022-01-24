@@ -1,4 +1,4 @@
-import { Field, ObjectType } from "type-graphql";
+import { Field, Float, ObjectType } from "type-graphql";
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { User } from "./users";
 
@@ -21,8 +21,8 @@ export class Order extends BaseEntity {
     @Column({ default: 0})
     quantity!: number;
 
-    @Field(() => Number)
-    @Column({default: 0})
+    @Field(() => Float)
+    @Column({default: 0, type: "real"})
     price!: number;
 
     @Field(() => String)
@@ -30,7 +30,7 @@ export class Order extends BaseEntity {
     status: string;
 
     @Field(() => User)
-    @ManyToOne(() => User)
+    @ManyToOne(() => User, user => user.id)
     @JoinColumn()
     user: User;
 }

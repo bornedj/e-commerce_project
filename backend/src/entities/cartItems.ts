@@ -22,11 +22,11 @@ export class CartItem extends BaseEntity {
     @Field(() => Product)
     @ManyToOne(() => Product, product => product.id)
     @JoinColumn()
-    product!: Product;
+    product: Product;
 
     // cart id
     @Field(() => Cart)
     @ManyToOne(() => Cart, cart => cart.id)
     @JoinColumn()
-    cart!: Cart;
+    cart: Cart;
 }

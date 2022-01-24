@@ -1,0 +1,16 @@
+export const typeormConfig = {
+    type: 'postgres',
+    database: process.env.DBNAME,
+    username: process.env.DBUSERNAME,
+    password: process.env.DBPASSWORD,
+    host: process.env.DBHOST,
+    logging: ["error", "migration", "query"],
+    port: 5432,
+    synchronize: false,
+    entities: ['./entities/*.ts'],
+    migrations: ["./migrations/*.ts"],
+    migrationsRun: true,
+    cli: {
+        "migrationsDir": "./migrations"
+    }
+}

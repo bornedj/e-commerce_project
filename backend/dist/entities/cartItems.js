@@ -9,43 +9,43 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CartItems = void 0;
+exports.CartItem = void 0;
 const type_graphql_1 = require("type-graphql");
 const typeorm_1 = require("typeorm");
 const cart_1 = require("./cart");
 const products_1 = require("./products");
-let CartItems = class CartItems extends typeorm_1.BaseEntity {
+let CartItem = class CartItem extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, type_graphql_1.Field)(),
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
-], CartItems.prototype, "id", void 0);
+], CartItem.prototype, "id", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => String),
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)
-], CartItems.prototype, "createdAt", void 0);
+], CartItem.prototype, "createdAt", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => String),
     (0, typeorm_1.UpdateDateColumn)(),
     __metadata("design:type", Date)
-], CartItems.prototype, "updatedAt", void 0);
+], CartItem.prototype, "updatedAt", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => products_1.Product),
     (0, typeorm_1.ManyToOne)(() => products_1.Product),
     (0, typeorm_1.JoinColumn)(),
     __metadata("design:type", products_1.Product)
-], CartItems.prototype, "product", void 0);
+], CartItem.prototype, "product", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => cart_1.Cart),
     (0, typeorm_1.ManyToOne)(() => cart_1.Cart),
     (0, typeorm_1.JoinColumn)(),
     __metadata("design:type", cart_1.Cart)
-], CartItems.prototype, "cart", void 0);
-CartItems = __decorate([
+], CartItem.prototype, "cart", void 0);
+CartItem = __decorate([
     (0, type_graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)()
-], CartItems);
-exports.CartItems = CartItems;
+], CartItem);
+exports.CartItem = CartItem;
 //# sourceMappingURL=cartItems.js.map

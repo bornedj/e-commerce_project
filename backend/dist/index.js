@@ -19,6 +19,7 @@ const cart_1 = require("./entities/cart");
 const cartItems_1 = require("./entities/cartItems");
 const orders_1 = require("./entities/orders");
 const orderItems_1 = require("./entities/orderItems");
+const carts_1 = require("./resolvers/carts");
 const main = async () => {
     const conn = await (0, typeorm_1.createConnection)({
         type: 'postgres',
@@ -28,18 +29,19 @@ const main = async () => {
         host: process.env.DBHOST,
         logging: ["error", "migration", "query"],
         port: 5432,
-        synchronize: true,
-        entities: [users_2.User, products_2.Product, cart_1.Cart, cartItems_1.CartItems, orders_1.Order, orderItems_1.OrderItems],
+        synchronize: false,
+        entities: [users_2.User, products_2.Product, cart_1.Cart, cartItems_1.CartItem, orderItems_1.OrderItems, orders_1.Order,],
         migrations: ["./migrations/*.ts"],
+        migrationsRun: true,
         cli: {
-            "migrationsDir": "migrations"
+            "migrationsDir": "./migrations"
         }
     });
     const app = (0, express_1.default)();
     const port = process.env.PORT || 4001;
     const apolloServer = new apollo_server_express_1.ApolloServer({
         schema: await (0, type_graphql_1.buildSchema)({
-            resolvers: [users_1.UserResolver, products_1.ProductResolver],
+            resolvers: [users_1.UserResolver, products_1.ProductResolver, carts_1.CartResolver],
             validate: false
         })
     });

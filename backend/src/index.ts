@@ -9,12 +9,12 @@ import 'dotenv/config';
 import { UserResolver } from './resolvers/users'
 import { User } from './entities/users';
 import { ProductResolver } from './resolvers/products';
-import { connect } from 'http2';
 import { Product } from './entities/products';
 import { Cart } from './entities/cart';
-import { CartItems } from './entities/cartItems';
+import { CartItem } from './entities/cartItems';
 import { Order } from './entities/orders';
 import { OrderItems } from './entities/orderItems';
+import { CartResolver } from './resolvers/carts';
 
 
 const main = async () => {
@@ -27,14 +27,14 @@ const main = async () => {
         host: process.env.DBHOST,
         logging: ["error", "migration", "query"],
         port: 5432,
-        synchronize: true,
-        entities: [User, Product, Cart, CartItems, Order, OrderItems],
+        synchronize: false,
+        entities: [User, Product, Cart, CartItem, OrderItems, Order,],
         migrations: ["./migrations/*.ts"],
+        migrationsRun: true,
         cli: {
-            "migrationsDir": "migrations"
+            "migrationsDir": "./migrations"
         }
-    }) 
-
+    });
 
     //creating the app
     const app = express();
@@ -43,7 +43,7 @@ const main = async () => {
     // setting up apollo for graphql
     const apolloServer = new ApolloServer({
         schema: await buildSchema({
-            resolvers: [UserResolver, ProductResolver],
+            resolvers: [UserResolver, ProductResolver, CartResolver],
             validate: false
         })
     });

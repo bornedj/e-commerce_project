@@ -21,10 +21,10 @@ export class ProductResolver {
     async createProduct(
         @Arg("name") name: string,
         @Arg("description") description: string,
-        @Arg("price") price: string,
+        @Arg("price") price: number,
         @Arg("quantity") quantity: number
     ): Promise<Product | undefined> {
-        return Product.create({ name: name, description: description, price: price, quantity: quantity }).save();
+        return await Product.create({ name: name, description: description, price: price, quantity: quantity }).save();
     };
 
     //UPDATE
@@ -33,7 +33,7 @@ export class ProductResolver {
         @Arg("id") id: number,
         @Arg("name") name: string,
         @Arg("description") description: string,
-        @Arg("price") price: string,
+        @Arg("price") price: number,
         @Arg("quantity") quantity: number
     ): Promise<Product | undefined> {
         const user = await Product.findOne(id);

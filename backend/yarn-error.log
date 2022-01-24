@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\danie\.node\corepack\yarn\1.22.15\bin\yarn.js add -D @types/typeorm
+  C:\Program Files\nodejs\node.exe C:\Users\danie\.node\corepack\yarn\1.22.15\bin\yarn.js add -D @types/postgres
 
 PATH: 
   C:\Users\danie\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\danie\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\nodejs;C:\Program Files\Git\cmd;C:\Users\danie\AppData\Local\Microsoft\WindowsApps;C:\Users\danie\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\danie\AppData\Roaming\npm;C:\Program Files\PostgreSQL\13\bin;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
@@ -14,7 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@types%2ftypeorm: Not found
+  Error: https://registry.yarnpkg.com/@types%2fpostgres: Not found
       at Request.params.callback [as _callback] (C:\Users\danie\.node\corepack\yarn\1.22.15\lib\cli.js:66140:18)
       at Request.self.callback (C:\Users\danie\.node\corepack\yarn\1.22.15\lib\cli.js:140885:22)
       at Request.emit (events.js:400:28)

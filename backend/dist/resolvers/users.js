@@ -23,7 +23,7 @@ let UserResolver = class UserResolver {
         return users_1.User.findOne(id);
     }
     async createUser(email, username, password) {
-        return users_1.User.create({
+        return await users_1.User.create({
             username: username,
             email: email,
             password: password

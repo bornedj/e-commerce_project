@@ -40,9 +40,9 @@ __decorate([
     __metadata("design:type", String)
 ], Product.prototype, "description", void 0);
 __decorate([
-    (0, type_graphql_1.Field)(() => String),
-    (0, typeorm_1.Column)({ type: 'real' }),
-    __metadata("design:type", String)
+    (0, type_graphql_1.Field)(() => type_graphql_1.Float),
+    (0, typeorm_1.Column)({ default: 0, type: 'real' }),
+    __metadata("design:type", Number)
 ], Product.prototype, "price", void 0);
 __decorate([
     (0, type_graphql_1.Field)(() => type_graphql_1.Int),

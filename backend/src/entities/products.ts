@@ -25,9 +25,9 @@ export class Product extends BaseEntity {
     @Column()
     description!: string;
 
-    @Field(() => String)
-    @Column({type: 'real'})
-    price!: string;
+    @Field(() => Float)
+    @Column({default: 0, type: 'real'})
+    price!: number;
 
     @Field(() => Int)
     @Column()

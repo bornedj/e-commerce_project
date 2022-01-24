@@ -23,7 +23,7 @@ let ProductResolver = class ProductResolver {
         return products_1.Product.findOne(id);
     }
     async createProduct(name, description, price, quantity) {
-        return products_1.Product.create({ name: name, description: description, price: price, quantity: quantity }).save();
+        return await products_1.Product.create({ name: name, description: description, price: price, quantity: quantity }).save();
     }
     ;
     async updateProduct(id, name, description, price, quantity) {
@@ -61,7 +61,7 @@ __decorate([
     __param(2, (0, type_graphql_1.Arg)("price")),
     __param(3, (0, type_graphql_1.Arg)("quantity")),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String, String, Number]),
+    __metadata("design:paramtypes", [String, String, Number, Number]),
     __metadata("design:returntype", Promise)
 ], ProductResolver.prototype, "createProduct", null);
 __decorate([
@@ -72,7 +72,7 @@ __decorate([
     __param(3, (0, type_graphql_1.Arg)("price")),
     __param(4, (0, type_graphql_1.Arg)("quantity")),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, String, String, String, Number]),
+    __metadata("design:paramtypes", [Number, String, String, Number, Number]),
     __metadata("design:returntype", Promise)
 ], ProductResolver.prototype, "updateProduct", null);
 __decorate([

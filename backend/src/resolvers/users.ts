@@ -23,7 +23,7 @@ export class UserResolver {
         @Arg("username") username: string,
         @Arg("password") password: string
     ): Promise<User | undefined> {
-        return User.create({ 
+        return await User.create({ 
             username: username,
             email: email,
             password: password

@@ -27,7 +27,7 @@ let UserResolver = class UserResolver {
     user(id) {
         return users_1.User.findOne(id);
     }
-    async register(options, email) {
+    async register(options, email, { req }) {
         if (options.username.length <= 2) {
             return {
                 errors: [{
@@ -40,13 +40,14 @@ let UserResolver = class UserResolver {
             return {
                 errors: [{
                         field: 'password',
-                        message: 'Password must be greater than 6 characters in lenght'
+                        message: 'Password must be greater than 6 characters in length'
                     }]
             };
         }
         const hashedPassword = await argon2_1.default.hash(options.password);
         try {
             const user = await users_1.User.create({ password: hashedPassword, username: options.username, email: email }).save();
+            req.session.userId = user.id;
             return {
                 user
             };
@@ -60,7 +61,7 @@ let UserResolver = class UserResolver {
             };
         }
     }
-    async login(options) {
+    async login(options, { req }) {
         const user = await users_1.User.findOne({ username: options.username });
         if (!user) {
             return {
@@ -79,6 +80,7 @@ let UserResolver = class UserResolver {
                     }]
             };
         }
+        req.session.userId = user.id;
         return {
             user
         };
@@ -115,15 +117,17 @@ __decorate([
     (0, type_graphql_1.Mutation)(() => types_1.UserResponse),
     __param(0, (0, type_graphql_1.Arg)("options")),
     __param(1, (0, type_graphql_1.Arg)("email")),
+    __param(2, (0, type_graphql_1.Ctx)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [types_1.UsernamePasswordInput, String]),
+    __metadata("design:paramtypes", [types_1.UsernamePasswordInput, String, Object]),
     __metadata("design:returntype", Promise)
 ], UserResolver.prototype, "register", null);
 __decorate([
     (0, type_graphql_1.Mutation)(() => types_1.UserResponse),
     __param(0, (0, type_graphql_1.Arg)('options')),
+    __param(1, (0, type_graphql_1.Ctx)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [types_1.UsernamePasswordInput]),
+    __metadata("design:paramtypes", [types_1.UsernamePasswordInput, Object]),
     __metadata("design:returntype", Promise)
 ], UserResolver.prototype, "login", null);
 __decorate([

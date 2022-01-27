@@ -1,5 +1,8 @@
 import { InputType, Field, Float, ObjectType } from "type-graphql";
 import { User } from "./entities/users";
+import { Request, Response, Express } from 'express';
+import { Session, SessionData } from 'express-session';
+import internal from "stream";
 
 // process.env
 declare global {
@@ -7,6 +10,19 @@ declare global {
         interface ProcessEnv {
             DEV: boolean
         }
+    }
+}
+
+// orm context
+export type MyContext = {
+    req: Request & { session?: SessionData },
+    res: Response 
+}
+
+// session context
+declare module "express-session" {
+    interface Session {
+        userId: number
     }
 }
 

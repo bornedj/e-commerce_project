@@ -18,7 +18,10 @@ import { CartResolver } from './resolvers/carts';
 import { CartItemResolver } from './resolvers/cartItems';
 import { OrderResolver } from './resolvers/orders';
 import { OrderItemResolver } from './resolvers/orderItems';
-import { jwtRouter } from './routes/jwt';
+import { createClient } from 'redis';
+import session from 'express-session';
+import connectRedis from 'connect-redis';
+import { readFileSync } from 'fs';
 
 const main = async () => {
     //establishing the database connection with typeorm
@@ -43,17 +46,41 @@ const main = async () => {
     const app = express();
     const port = process.env.PORT || 4001;
 
+    //creating redis connection for sessions
+    const RedisStore = connectRedis(session);
+    const redisClient = createClient();
+
+    // establishing session settings
+    app.use(session({
+        name: 'qid',
+        store: new RedisStore({ 
+            client: redisClient,
+            disableTouch: false
+        }),
+        cookie: {
+            // cookie expires after three hours
+            maxAge: 1000 * 60 * 60 * 3,
+            httpOnly: true,
+            sameSite: 'lax', //csrf settings
+            secure: process.env.DEV //cookie only works in https set with dev variable
+        },
+        secret: readFileSync('./key.pem', 'utf-8'),
+        resave: false,
+        saveUninitialized: false
+    }))
+
     //adding middleware
     app.use(cors());
     app.use(morgan('tiny'));
-    app.use('/jwt', jwtRouter)
+    // app.use('/jwt', jwtRouter)
 
     // setting up apollo for graphql
     const apolloServer = new ApolloServer({
         schema: await buildSchema({
             resolvers: [UserResolver, ProductResolver, CartResolver, CartItemResolver, OrderResolver, OrderItemResolver],
             validate: false
-        })
+        }),
+        context: ({req, res}) => ({req, res})
     });
     await apolloServer.start();
     apolloServer.applyMiddleware({ app });

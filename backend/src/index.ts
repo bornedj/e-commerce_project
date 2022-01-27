@@ -30,7 +30,7 @@ const main = async () => {
         host: process.env.DBHOST,
         logging: ["error", "migration", "query"],
         port: 5432,
-        synchronize: true,
+        synchronize: process.env.DEV,
         entities: [User, Product, Cart, CartItem, OrderItems, Order,],
         migrations: ["./migrations/*.ts"],
         migrationsRun: true,

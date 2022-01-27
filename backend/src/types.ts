@@ -1,6 +1,15 @@
 import { InputType, Field, Float, ObjectType } from "type-graphql";
 import { User } from "./entities/users";
 
+// process.env
+declare global {
+    namespace NodeJS {
+        interface ProcessEnv {
+            DEV: boolean
+        }
+    }
+}
+
 // cart id input
 @InputType()
 export class CartIdInput {

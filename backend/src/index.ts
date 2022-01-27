@@ -18,7 +18,7 @@ import { CartResolver } from './resolvers/carts';
 import { CartItemResolver } from './resolvers/cartItems';
 import { OrderResolver } from './resolvers/orders';
 import { OrderItemResolver } from './resolvers/orderItems';
-
+import { jwtRouter } from './routes/jwt';
 
 const main = async () => {
     //establishing the database connection with typeorm
@@ -43,6 +43,11 @@ const main = async () => {
     const app = express();
     const port = process.env.PORT || 4001;
 
+    //adding middleware
+    app.use(cors());
+    app.use(morgan('tiny'));
+    app.use('/jwt', jwtRouter)
+
     // setting up apollo for graphql
     const apolloServer = new ApolloServer({
         schema: await buildSchema({
@@ -53,20 +58,16 @@ const main = async () => {
     await apolloServer.start();
     apolloServer.applyMiddleware({ app });
 
-    //adding middleware
-    app.use(cors());
-    app.use(morgan('tiny'));
-
     //hello world
     app.get('/', (_, res) => {
         res.send("hellow world")
     })
 
+
     //listening
     app.listen(port, () => {
         console.log(`App listening on http://localhost:${port}`);
     })
-
 }
 
 main().catch(err => {

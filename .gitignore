@@ -1,4 +1,5 @@
 /backend/.env
+/backend/.pem
 .env
 *.log
 *.sql

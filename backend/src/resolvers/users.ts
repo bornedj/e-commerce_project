@@ -35,7 +35,8 @@ export class UserResolver {
             }
         }
         //limits on the password length
-        if (options.password.length <=6 ) {
+        const lengthLimit: number = process.env.DEV ? 0 : 7;
+        if (options.password.length <= lengthLimit ) {
             return {
                 errors: [{
                     field: 'password',
@@ -47,11 +48,12 @@ export class UserResolver {
         // try catch in case of duplicate usernames or emails
         try {
             const user = await User.create({password: hashedPassword, username: options.username, email: email}).save();
-            req.session.userId = user.id;
+            // req.session.userId = user.id;
             return {
                 user
             };
         } catch(err) {
+            console.log(err)
             return {
                 errors: [{
                     field: 'login',

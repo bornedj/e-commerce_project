@@ -36,7 +36,8 @@ let UserResolver = class UserResolver {
                     }]
             };
         }
-        if (options.password.length <= 6) {
+        const lengthLimit = process.env.DEV ? 0 : 7;
+        if (options.password.length <= lengthLimit) {
             return {
                 errors: [{
                         field: 'password',
@@ -47,12 +48,12 @@ let UserResolver = class UserResolver {
         const hashedPassword = await argon2_1.default.hash(options.password);
         try {
             const user = await users_1.User.create({ password: hashedPassword, username: options.username, email: email }).save();
-            req.session.userId = user.id;
             return {
                 user
             };
         }
         catch (err) {
+            console.log(err);
             return {
                 errors: [{
                         field: 'login',

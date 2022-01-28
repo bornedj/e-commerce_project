@@ -49,6 +49,10 @@ const main = async () => {
     //creating redis connection for sessions
     const RedisStore = connectRedis(session);
     const redisClient = createClient();
+    redisClient.connect();
+    redisClient.on('connect', () => {
+        console.log('redis connected')
+    })
 
     // establishing session settings
     app.use(session({
@@ -80,7 +84,11 @@ const main = async () => {
             resolvers: [UserResolver, ProductResolver, CartResolver, CartItemResolver, OrderResolver, OrderItemResolver],
             validate: false
         }),
-        context: ({req, res}) => ({req, res})
+        context: (req: Request, res: Response) => {
+            return {
+                req: req, res: res
+            }
+        }
     });
     await apolloServer.start();
     apolloServer.applyMiddleware({ app });

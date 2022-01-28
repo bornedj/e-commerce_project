@@ -48,6 +48,10 @@ const main = async () => {
     const port = process.env.PORT || 4001;
     const RedisStore = (0, connect_redis_1.default)(express_session_1.default);
     const redisClient = (0, redis_1.createClient)();
+    redisClient.connect();
+    redisClient.on('connect', () => {
+        console.log('redis connected');
+    });
     app.use((0, express_session_1.default)({
         name: 'qid',
         store: new RedisStore({
@@ -71,7 +75,11 @@ const main = async () => {
             resolvers: [users_1.UserResolver, products_1.ProductResolver, carts_1.CartResolver, cartItems_2.CartItemResolver, orders_2.OrderResolver, orderItems_2.OrderItemResolver],
             validate: false
         }),
-        context: ({ req, res }) => ({ req, res })
+        context: (req, res) => {
+            return {
+                req: req, res: res
+            };
+        }
     });
     await apolloServer.start();
     apolloServer.applyMiddleware({ app });

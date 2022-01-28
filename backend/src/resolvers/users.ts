@@ -88,14 +88,25 @@ export class UserResolver {
                 }]
             }
         }
-
         req.session.userId = user.id;
-        console.log(user)
-
+        console.log(req.session)
         // valid password returns user
         return {
             user: user
         }
+    }
+
+    // me mutation, get's user based on cookie
+    @Mutation(() => User)
+    async me(@Ctx() { req }: MyContext ):  Promise<User | undefined> {
+        //if they have a userId stored they have been logged in or registered
+        console.log(req.session)
+        if (!req.session.userId) {
+            return undefined;
+        }
+        //if they are logged in retrieve their information
+        const user = await User.findOne({id: req.session.userId})
+        return user;
     }
 
     //UPDATE

@@ -14,7 +14,7 @@ declare global {
 
 // orm context
 export type MyContext = {
-    req: Request //& { session?: Session },
+    req: Request & { session?: Session },
     res: Response 
 }
 

@@ -46,6 +46,7 @@ const main = async () => {
     //creating the app
     const app = express();
     const port = process.env.PORT || 4001;
+    app.set('trust proxy', 1)// setting a proxy so that cookies can be sent to apollo server
 
     //creating redis connection for sessions
     const RedisStore = connectRedis(session);
@@ -72,7 +73,7 @@ const main = async () => {
 
     // establishing session settings
     app.use(session({
-        name: 'qid',
+        name: 'QID',
         store: new RedisStore({ 
             client: redisClient,
             disableTouch: false
@@ -81,7 +82,7 @@ const main = async () => {
             // cookie expires after three hours
             maxAge: 1000 * 60 * 60 * 3,
             httpOnly: true,
-            sameSite: 'lax', //csrf settings
+            sameSite: 'none', //csrf settings
             secure: true
         },
         secret: readFileSync('./key.pem', 'utf-8'),
@@ -98,10 +99,11 @@ const main = async () => {
         context: ({req, res}): MyContext => ({req, res}),
     });
     await apolloServer.start();
-    apolloServer.applyMiddleware({ app });
+    apolloServer.applyMiddleware({ app, cors: {credentials: true, origin: "https://studio.apollographql.com"} });
 
     //hello world
-    app.get('/', (_, res) => {
+    app.get('/', (req, res) => {
+        req.session.userId = 15; 
         res.send("hellow world")
     })
 

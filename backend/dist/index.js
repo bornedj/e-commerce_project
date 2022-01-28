@@ -46,6 +46,7 @@ const main = async () => {
     });
     const app = (0, express_1.default)();
     const port = process.env.PORT || 4001;
+    app.set('trust proxy', 1);
     const RedisStore = (0, connect_redis_1.default)(express_session_1.default);
     const redisClient = (0, redis_1.createClient)({
         legacyMode: true
@@ -63,7 +64,7 @@ const main = async () => {
     }));
     app.use((0, morgan_1.default)('tiny'));
     app.use((0, express_session_1.default)({
-        name: 'qid',
+        name: 'QID',
         store: new RedisStore({
             client: redisClient,
             disableTouch: false
@@ -71,7 +72,7 @@ const main = async () => {
         cookie: {
             maxAge: 1000 * 60 * 60 * 3,
             httpOnly: true,
-            sameSite: 'lax',
+            sameSite: 'none',
             secure: true
         },
         secret: (0, fs_1.readFileSync)('./key.pem', 'utf-8'),
@@ -86,8 +87,9 @@ const main = async () => {
         context: ({ req, res }) => ({ req, res }),
     });
     await apolloServer.start();
-    apolloServer.applyMiddleware({ app });
-    app.get('/', (_, res) => {
+    apolloServer.applyMiddleware({ app, cors: { credentials: true, origin: "https://studio.apollographql.com" } });
+    app.get('/', (req, res) => {
+        req.session.userId = 15;
         res.send("hellow world");
     });
     app.listen(port, () => {

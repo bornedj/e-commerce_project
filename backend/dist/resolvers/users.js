@@ -30,35 +30,45 @@ let UserResolver = class UserResolver {
     async register(options, email, { req }) {
         if (options.username.length <= 2) {
             return {
-                errors: [{
-                        field: 'username',
-                        message: 'Username must be greater than 2 characters in lenght'
-                    }]
+                errors: [
+                    {
+                        field: "username",
+                        message: "Username must be greater than 2 characters in lenght",
+                    },
+                ],
             };
         }
         const lengthLimit = process.env.DEV ? 0 : 7;
         if (options.password.length <= lengthLimit) {
             return {
-                errors: [{
-                        field: 'password',
-                        message: 'Password must be greater than 6 characters in length'
-                    }]
+                errors: [
+                    {
+                        field: "password",
+                        message: "Password must be greater than 6 characters in length",
+                    },
+                ],
             };
         }
         const hashedPassword = await argon2_1.default.hash(options.password);
         try {
-            const user = await users_1.User.create({ password: hashedPassword, username: options.username, email: email }).save();
+            const user = await users_1.User.create({
+                password: hashedPassword,
+                username: options.username,
+                email: email,
+            }).save();
             req.session.userId = user.id;
             return {
-                user
+                user,
             };
         }
         catch (err) {
             return {
-                errors: [{
-                        field: 'login',
-                        message: 'Message' + err
-                    }]
+                errors: [
+                    {
+                        field: "login",
+                        message: "Message" + err,
+                    },
+                ],
             };
         }
     }
@@ -66,25 +76,28 @@ let UserResolver = class UserResolver {
         const user = await users_1.User.findOne({ username: options.username });
         if (!user) {
             return {
-                errors: [{
-                        field: 'username',
-                        message: 'Username does not exist'
-                    }],
+                errors: [
+                    {
+                        field: "username",
+                        message: "Username does not exist",
+                    },
+                ],
             };
         }
         const valid = await argon2_1.default.verify(user.password, options.password);
         if (!valid) {
             return {
-                errors: [{
-                        field: 'password',
-                        message: 'Password incorrect'
-                    }]
+                errors: [
+                    {
+                        field: "password",
+                        message: "Password incorrect",
+                    },
+                ],
             };
         }
         req.session.userId = user.id;
-        console.log(req.session);
         return {
-            user: user
+            user: user,
         };
     }
     async me({ req }) {
@@ -134,7 +147,7 @@ __decorate([
 ], UserResolver.prototype, "register", null);
 __decorate([
     (0, type_graphql_1.Mutation)(() => types_1.UserResponse),
-    __param(0, (0, type_graphql_1.Arg)('options')),
+    __param(0, (0, type_graphql_1.Arg)("options")),
     __param(1, (0, type_graphql_1.Ctx)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [types_1.UsernamePasswordInput, Object]),
@@ -158,7 +171,7 @@ __decorate([
 ], UserResolver.prototype, "updateUser", null);
 __decorate([
     (0, type_graphql_1.Mutation)(() => Boolean),
-    __param(0, (0, type_graphql_1.Arg)('id')),
+    __param(0, (0, type_graphql_1.Arg)("id")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)

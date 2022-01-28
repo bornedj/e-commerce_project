@@ -24,7 +24,7 @@ export class UserResolver {
         @Arg("options") options: UsernamePasswordInput,
         @Arg("email") email: string,
         @Ctx() {req}: MyContext
-    ) {
+    ): Promise<UserResponse> {
         // adding length limits on the username
         if (options.username.length <=2 ) {
             return {
@@ -48,12 +48,11 @@ export class UserResolver {
         // try catch in case of duplicate usernames or emails
         try {
             const user = await User.create({password: hashedPassword, username: options.username, email: email}).save();
-            // req.session.userId = user.id;
+            req.session.userId = user.id;
             return {
                 user
             };
         } catch(err) {
-            console.log(err)
             return {
                 errors: [{
                     field: 'login',
@@ -91,10 +90,11 @@ export class UserResolver {
         }
 
         req.session.userId = user.id;
+        console.log(user)
 
         // valid password returns user
         return {
-            user
+            user: user
         }
     }
 

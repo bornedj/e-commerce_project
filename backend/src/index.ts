@@ -22,6 +22,7 @@ import { createClient } from 'redis';
 import session from 'express-session';
 import connectRedis from 'connect-redis';
 import { readFileSync } from 'fs';
+import { MyContext } from './types';
 
 const main = async () => {
     //establishing the database connection with typeorm
@@ -48,11 +49,26 @@ const main = async () => {
 
     //creating redis connection for sessions
     const RedisStore = connectRedis(session);
-    const redisClient = createClient();
+    const redisClient = createClient({
+        legacyMode: true
+    });
     redisClient.connect();
     redisClient.on('connect', () => {
         console.log('redis connected')
     })
+    redisClient.on('error', (error) => {
+        console.log(error)
+    })
+
+    //adding middleware
+    app.use(cors({
+        credentials: true,
+        origin: "https://studio.apollographql.com"
+    }
+         
+    ));
+    app.use(morgan('tiny'));
+    // app.use('/jwt', jwtRouter)
 
     // establishing session settings
     app.use(session({
@@ -66,17 +82,12 @@ const main = async () => {
             maxAge: 1000 * 60 * 60 * 3,
             httpOnly: true,
             sameSite: 'lax', //csrf settings
-            secure: process.env.DEV //cookie only works in https set with dev variable
+            secure: true
         },
         secret: readFileSync('./key.pem', 'utf-8'),
         resave: false,
         saveUninitialized: false
     }))
-
-    //adding middleware
-    app.use(cors());
-    app.use(morgan('tiny'));
-    // app.use('/jwt', jwtRouter)
 
     // setting up apollo for graphql
     const apolloServer = new ApolloServer({
@@ -84,11 +95,7 @@ const main = async () => {
             resolvers: [UserResolver, ProductResolver, CartResolver, CartItemResolver, OrderResolver, OrderItemResolver],
             validate: false
         }),
-        context: (req: Request, res: Response) => {
-            return {
-                req: req, res: res
-            }
-        }
+        context: ({req, res}): MyContext => ({req, res}),
     });
     await apolloServer.start();
     apolloServer.applyMiddleware({ app });

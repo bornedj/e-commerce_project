@@ -48,12 +48,12 @@ let UserResolver = class UserResolver {
         const hashedPassword = await argon2_1.default.hash(options.password);
         try {
             const user = await users_1.User.create({ password: hashedPassword, username: options.username, email: email }).save();
+            req.session.userId = user.id;
             return {
                 user
             };
         }
         catch (err) {
-            console.log(err);
             return {
                 errors: [{
                         field: 'login',
@@ -82,8 +82,9 @@ let UserResolver = class UserResolver {
             };
         }
         req.session.userId = user.id;
+        console.log(user);
         return {
-            user
+            user: user
         };
     }
     async updateUser(id, username, password) {

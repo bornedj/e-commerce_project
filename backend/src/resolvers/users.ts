@@ -37,7 +37,7 @@ export class UserResolver {
       };
     }
     //limits on the password length
-    const lengthLimit: number = process.env.DEV ? 0 : 7;
+    const lengthLimit: number = process.env.DEV ? 4 : 6;
     if (options.password.length <= lengthLimit) {
       return {
         errors: [
@@ -65,7 +65,7 @@ export class UserResolver {
         errors: [
           {
             field: "login",
-            message: "Message" + err,
+            message: "Message:" + err,
           },
         ],
       };
@@ -113,7 +113,6 @@ export class UserResolver {
   @Mutation(() => User)
   async me(@Ctx() { req }: MyContext): Promise<User | undefined> {
     //if they have a userId stored they have been logged in or registered
-    console.log(req.session);
     if (!req.session.userId) {
       return undefined;
     }

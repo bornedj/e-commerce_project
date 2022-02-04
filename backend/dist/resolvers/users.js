@@ -38,7 +38,7 @@ let UserResolver = class UserResolver {
                 ],
             };
         }
-        const lengthLimit = process.env.DEV ? 0 : 7;
+        const lengthLimit = process.env.DEV ? 4 : 6;
         if (options.password.length <= lengthLimit) {
             return {
                 errors: [
@@ -66,7 +66,7 @@ let UserResolver = class UserResolver {
                 errors: [
                     {
                         field: "login",
-                        message: "Message" + err,
+                        message: "Message:" + err,
                     },
                 ],
             };
@@ -101,7 +101,6 @@ let UserResolver = class UserResolver {
         };
     }
     async me({ req }) {
-        console.log(req.session);
         if (!req.session.userId) {
             return undefined;
         }

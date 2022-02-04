@@ -83,11 +83,12 @@ const main = async () => {
         // cookie expires after three hours
         maxAge: 1000 * 60 * 60 * 3,
         httpOnly: true,
-        sameSite: "none", //csrf settings
-        secure: true,
+        // sameSite: process.env.DEV ? "none" : "lax", //csrf settings
+        sameSite: "lax",
+        secure: !process.env.DEV,
       },
-      secret: readFileSync("./key.pem", "utf-8"),
       resave: false,
+      secret: readFileSync("./key.pem", "utf-8"),
       saveUninitialized: false,
     })
   );

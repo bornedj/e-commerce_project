@@ -61,11 +61,35 @@ export class UserResolver {
         user,
       };
     } catch (err) {
+      console.log(err);
+      //duplicate key handling
+      if (err.code === "23505") {
+        if (err.detail.includes("username")) {
+          return {
+            errors: [
+              {
+                field: "username",
+                message: "Username already exists",
+              },
+            ],
+          };
+        } else if (err.detail.includes("email")) {
+          return {
+            errors: [
+              {
+                field: "email",
+                message: "Email already exists",
+              },
+            ],
+          };
+        }
+      }
+      // all other errors
       return {
         errors: [
           {
             field: "login",
-            message: "Message:" + err,
+            message: err,
           },
         ],
       };

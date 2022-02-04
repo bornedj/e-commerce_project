@@ -62,11 +62,34 @@ let UserResolver = class UserResolver {
             };
         }
         catch (err) {
+            console.log(err);
+            if (err.code === "23505") {
+                if (err.detail.includes("username")) {
+                    return {
+                        errors: [
+                            {
+                                field: "username",
+                                message: "Username already exists",
+                            },
+                        ],
+                    };
+                }
+                else if (err.detail.includes("email")) {
+                    return {
+                        errors: [
+                            {
+                                field: "email",
+                                message: "Email already exists",
+                            },
+                        ],
+                    };
+                }
+            }
             return {
                 errors: [
                     {
                         field: "login",
-                        message: "Message:" + err,
+                        message: err,
                     },
                 ],
             };

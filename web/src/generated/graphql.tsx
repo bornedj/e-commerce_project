@@ -54,7 +54,6 @@ export type Mutation = {
   deleteProduct: Scalars['Boolean'];
   deleteUser: Scalars['Boolean'];
   login: UserResponse;
-  me: User;
   register: UserResponse;
   updateCart?: Maybe<Cart>;
   updateCartItem: CartItem;
@@ -216,6 +215,7 @@ export type Query = {
   cartItemById: CartItem;
   cartItems: Array<CartItem>;
   carts: Array<Cart>;
+  me: User;
   order: Order;
   orderItem: OrderItems;
   orderItems: Array<OrderItems>;
@@ -287,6 +287,11 @@ export type LoginMutationVariables = Exact<{
 
 export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'UserResponse', user?: { __typename?: 'User', id: number, email: string, username: string } | null | undefined, errors?: Array<{ __typename?: 'FieldResponse', field: string, message: string }> | null | undefined } };
 
+export type MeQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type MeQuery = { __typename?: 'Query', me: { __typename?: 'User', id: number, username: string } };
+
 export type RegisterMutationVariables = Exact<{
   email: Scalars['String'];
   options: UsernamePasswordInput;
@@ -314,6 +319,18 @@ export const LoginDocument = gql`
 
 export function useLoginMutation() {
   return Urql.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument);
+};
+export const MeDocument = gql`
+    query Me {
+  me {
+    id
+    username
+  }
+}
+    `;
+
+export function useMeQuery(options: Omit<Urql.UseQueryArgs<MeQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<MeQuery>({ query: MeDocument, ...options });
 };
 export const RegisterDocument = gql`
     mutation Register($email: String!, $options: UsernamePasswordInput!) {

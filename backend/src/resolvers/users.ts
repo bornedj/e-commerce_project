@@ -134,7 +134,7 @@ export class UserResolver {
   }
 
   // me mutation, get's user based on cookie
-  @Mutation(() => User)
+  @Query(() => User)
   async me(@Ctx() { req }: MyContext): Promise<User | undefined> {
     //if they have a userId stored they have been logged in or registered
     if (!req.session.userId) {

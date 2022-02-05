@@ -1,0 +1,5 @@
+# fragment for the short commonly used user query
+fragment ShortUser on User {
+  id
+  username
+}

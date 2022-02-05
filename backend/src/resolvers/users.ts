@@ -168,4 +168,22 @@ export class UserResolver {
     await User.delete(id);
     return true;
   }
+
+  // Logout mutation
+  @Mutation(() => Boolean)
+  logout(@Ctx() { req, res }: MyContext) {
+    // Attempt to destroy the users sessions. If there is an error log it and return false
+    return new Promise((resolve) =>
+      req.session.destroy((err) => {
+        res.clearCookie("QID");
+        if (err) {
+          console.log(err);
+          resolve(false);
+          return;
+        }
+        console.log(req.session);
+        resolve(true);
+      })
+    );
+  }
 }

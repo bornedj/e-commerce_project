@@ -33,11 +33,12 @@ const client = createClient({
                 // if there's an error with the query, return the query
                 if (result.login.errors) {
                   return query;
-                } else {
+                } else if (result.login.user) {
                   return {
                     me: result.login.user,
                   };
                 }
+                return query;
               }
             );
           },

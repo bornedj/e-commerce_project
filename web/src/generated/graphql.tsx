@@ -216,7 +216,7 @@ export type Query = {
   cartItemById: CartItem;
   cartItems: Array<CartItem>;
   carts: Array<Cart>;
-  me: User;
+  me?: Maybe<User>;
   order: Order;
   orderItem: OrderItems;
   orderItems: Array<OrderItems>;
@@ -308,7 +308,7 @@ export type RegisterMutation = { __typename?: 'Mutation', register: { __typename
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MeQuery = { __typename?: 'Query', me: { __typename?: 'User', id: number, username: string } };
+export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: number, username: string } | null | undefined };
 
 export const FullUserFragmentDoc = gql`
     fragment FullUser on User {
@@ -374,11 +374,10 @@ export function useRegisterMutation() {
 export const MeDocument = gql`
     query Me {
   me {
-    id
-    username
+    ...ShortUser
   }
 }
-    `;
+    ${ShortUserFragmentDoc}`;
 
 export function useMeQuery(options: Omit<Urql.UseQueryArgs<MeQueryVariables>, 'query'> = {}) {
   return Urql.useQuery<MeQuery>({ query: MeDocument, ...options });

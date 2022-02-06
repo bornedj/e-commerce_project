@@ -134,11 +134,11 @@ export class UserResolver {
   }
 
   // me mutation, get's user based on cookie
-  @Query(() => User)
-  async me(@Ctx() { req }: MyContext): Promise<User | undefined> {
+  @Query(() => User, { nullable: true })
+  async me(@Ctx() { req }: MyContext) {
     //if they have a userId stored they have been logged in or registered
     if (!req.session.userId) {
-      return undefined;
+      return null;
     }
     //if they are logged in retrieve their information
     const user = await User.findOne({ id: req.session.userId });
@@ -181,7 +181,6 @@ export class UserResolver {
           resolve(false);
           return;
         }
-        console.log(req.session);
         resolve(true);
       })
     );

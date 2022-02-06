@@ -125,7 +125,7 @@ let UserResolver = class UserResolver {
     }
     async me({ req }) {
         if (!req.session.userId) {
-            return undefined;
+            return null;
         }
         const user = await users_1.User.findOne({ id: req.session.userId });
         return user;
@@ -152,7 +152,6 @@ let UserResolver = class UserResolver {
                 resolve(false);
                 return;
             }
-            console.log(req.session);
             resolve(true);
         }));
     }
@@ -188,7 +187,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserResolver.prototype, "login", null);
 __decorate([
-    (0, type_graphql_1.Query)(() => users_1.User),
+    (0, type_graphql_1.Query)(() => users_1.User, { nullable: true }),
     __param(0, (0, type_graphql_1.Ctx)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
